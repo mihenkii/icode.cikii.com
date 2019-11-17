@@ -2,3 +2,4 @@ output
 .svn
 *.un~
 .swap
+.vscode
