@@ -1,6 +1,9 @@
 package models
 
 import (
+	"log"
+
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -23,6 +26,11 @@ const (
 	postCollection = "post"
 )
 
+// GetTitle method
+func (p *Post) GetTitle() (title string) {
+	return p.Title
+}
+
 // InsertPost method
 func (p *Post) InsertPost(post Post) *mongo.InsertOneResult {
 	return Insert(db, postCollection, post)
@@ -34,8 +42,11 @@ func (p *Post) MultiInsertPost(posts []Post) *mongo.InsertManyResult {
 }
 
 // FindPostByID method
-func (p *Post) FindPostByID(ID primitive.ObjectID) (result interface{}) {
-	var post Post
-	post.ID = ID
-	return FindOne(db, postCollection, post)
+func FindPostByID(id string) (result interface{}) {
+	oid, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.D{primitive.E{Key: "_id", Value: oid}}
+	return FindOne(db, postCollection, filter)
 }
