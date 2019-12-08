@@ -31,9 +31,23 @@ func (p *Post) GetTitle() (title string) {
 	return p.Title
 }
 
-// InsertPost method
-func (p *Post) InsertPost(post Post) *mongo.InsertOneResult {
+// GetID method
+func (p *Post) GetID() (ID primitive.ObjectID) {
+	return p.ID
+}
+
+// CreatePost function
+func CreatePost(post Post) *mongo.InsertOneResult {
 	return Insert(db, postCollection, post)
+}
+
+// UpdatePost method
+func UpdatePost(post Post) {
+	filter := bson.D{primitive.E{Key: "_id", Value: post.ID}}
+	update := bson.D{
+		{Key: "$set", Value: bson.D{{Key: "title", Value: "tttt"}}},
+	}
+	Update(db, postCollection, filter, update)
 }
 
 // MultiInsertPost method

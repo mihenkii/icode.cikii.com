@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -22,7 +23,7 @@ func main() {
 	post.UserID = 1
 	post.ReferURL = "http://www.baidu.com"
 	post.Extra = ""
-	post.InsertPost(post)
+	models.CreatePost(post)
 	// post.ID = primitive.NewObjectID()
 	// post2 := Post{primitive.NewObjectID(), "这是一个title", "这是content，有长度", 1, time.Now().Unix(), time.Now().Unix(), 1, "http://www.baidu.com", ""}
 	// collection := client.Database("cikii").Collection("post")
@@ -40,6 +41,18 @@ func main() {
 		fmt.Printf("Found a single document: %+v\n", result)
 	*/
 	result := models.FindPostByID("5deb9a1eb19bc5a841718027")
+	fmt.Printf("Found a single document: %+v\n", result)
+
+	var postForUpdate models.Post
+	oid, err := primitive.ObjectIDFromHex("5deb9a1eb19bc5a841718027")
+	if err != nil {
+		log.Fatal(err)
+	}
+	postForUpdate.ID = oid
+	postForUpdate.Title = "new title"
+	models.UpdatePost(postForUpdate)
+
+	result = models.FindPostByID("5deb9a1eb19bc5a841718027")
 	fmt.Printf("Found a single document: %+v\n", result)
 
 	// fileter :=
