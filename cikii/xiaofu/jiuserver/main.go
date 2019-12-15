@@ -49,7 +49,7 @@ func main() {
 		log.Fatal(err)
 	}
 	postForUpdate.ID = oid
-	postForUpdate.Title = "new title"
+	postForUpdate.Title = "new title M2"
 	models.UpdatePost(postForUpdate)
 
 	result = models.FindPostByID("5deb9a1eb19bc5a841718027")

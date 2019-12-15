@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -116,4 +117,14 @@ func Delete(db, collection string, filter interface{}) *mongo.DeleteResult {
 	}
 	fmt.Printf("Deleted %v document in the collection\n", deleteResulct.DeletedCount)
 	return deleteResulct
+}
+
+// ConvertToDoc to document
+func ConvertToDoc(v interface{}) (doc *bson.M, err error) {
+	data, err := bson.Marshal(v)
+	if err != nil {
+		return
+	}
+	err = bson.Unmarshal(data, &doc)
+	return
 }

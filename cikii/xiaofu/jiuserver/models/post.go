@@ -11,14 +11,14 @@ import (
 // Post is artile
 type Post struct {
 	ID       primitive.ObjectID `bson:"_id" json:"id"`
-	Title    string             `bson:"title" json:"title"`
-	Content  string             `bson:"content" json:"content"`
-	Type     int                `bson:"type" json:"type"`
-	Ctime    int64              `bson:"ctime" json:"ctime"`
-	Utime    int64              `bson:"utime" json:"utime"`
-	UserID   int                `bson:"user_id" json:"user_id"`
-	ReferURL string             `bson:"refer_url" json:"refer_url"`
-	Extra    string             `bson:"extra" json:"extra"`
+	Title    string             `bson:"title,omitempty" json:"title,omitempty"`
+	Content  string             `bson:"content,omitempty" json:"content,omitempty"`
+	Type     int                `bson:"type,omitempty" json:"type,omitempty"`
+	Ctime    int64              `bson:"ctime,omitempty" json:"ctime,omitempty"`
+	Utime    int64              `bson:"utime,omitempty" json:"utime,omitempty"`
+	UserID   int                `bson:"user_id,omitempty" json:"user_id,omitempty"`
+	ReferURL string             `bson:"refer_url,omitempty" json:"refer_url,omitempty"`
+	Extra    string             `bson:"extra,omitempty" json:"extra,omitempty"`
 }
 
 const (
@@ -43,11 +43,19 @@ func CreatePost(post Post) *mongo.InsertOneResult {
 
 // UpdatePost method
 func UpdatePost(post Post) {
-	filter := bson.D{primitive.E{Key: "_id", Value: post.ID}}
-	update := bson.D{
-		{Key: "$set", Value: bson.D{{Key: "title", Value: "tttt"}}},
+	filter := bson.D{{Key: "_id", Value: post.ID}}
+	update2, err := ConvertToDoc(post)
+	if err != nil {
+		log.Fatal(err)
 	}
-	Update(db, postCollection, filter, update)
+	// update := bson.D{
+	//	{Key: "$set", Value: bson.D{{Key: "title", Value: post.Title}}},
+	// }
+	// update := bson.M{{Key: "title", Value: post.Title}}}
+	// update1 := bson.D{{Key: "$set", Value: bson.M{"title": post.Title, "Content": post.Content}}}
+	update3 := bson.D{{Key: "$set", Value: update2}}
+	log.Printf("%v", update2)
+	Update(db, postCollection, filter, update3)
 }
 
 // MultiInsertPost method
