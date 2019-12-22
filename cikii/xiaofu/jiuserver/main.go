@@ -1,59 +1,59 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"time"
+	"reflect"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"icode.cikii.com/cikii/xiaofu/jiuserver/models"
 )
 
 func main() {
 
 	// post := models.Post{primitive.NewObjectID(), "这是一个title3", "这是content，有长度", 1, time.Now().Unix(), time.Now().Unix(), 1, "http://www.baidu.com", ""}
-	var post models.Post
-	post.ID = primitive.NewObjectID()
-	post.Title = "这是一个title4"
-	post.Content = "这是content，有长度"
-	post.Type = 1
-	post.Ctime = time.Now().Unix()
-	post.Utime = time.Now().Unix()
-	post.UserID = 1
-	post.ReferURL = "http://www.baidu.com"
-	post.Extra = ""
-	models.CreatePost(post)
-	// post.ID = primitive.NewObjectID()
-	// post2 := Post{primitive.NewObjectID(), "这是一个title", "这是content，有长度", 1, time.Now().Unix(), time.Now().Unix(), 1, "http://www.baidu.com", ""}
-	// collection := client.Database("cikii").Collection("post")
 	/*
-		insertResult, err := collection.InsertOne(context.TODO(), post2)
+		var post models.Post
+		post.ID = primitive.NewObjectID()
+		post.Title = "这是一个title4"
+		post.Content = "这是content，有长度"
+		post.Type = 1
+		post.Ctime = time.Now().Unix()
+		post.Utime = time.Now().Unix()
+		post.UserID = 1
+		post.ReferURL = "http://www.baidu.com"
+		post.Extra = ""
+		models.CreatePost(post)
+
+		result := models.FindPostByID("5deb9a1eb19bc5a841718027")
+		fmt.Printf("Found a single document: %+v\n", result)
+
+		var postForUpdate models.Post
+		oid, err := primitive.ObjectIDFromHex("5deb9a1eb19bc5a841718027")
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("Inserted a single document: ", insertResult.InsertedID)
+		postForUpdate.ID = oid
+		postForUpdate.Title = "new title M2"
+		models.UpdatePost(postForUpdate)
 
-		var result models.Post
-		filter := bson.D{primitive.E{Key: "id", Value: 1}}
-		result.FindPostByID(primitive.NewObjectID())
-		err = collection.FindOne(context.TODO(), filter).Decode(&result)
+		result = models.FindPostByID("5deb9a1eb19bc5a841718027")
 		fmt.Printf("Found a single document: %+v\n", result)
-	*/
-	result := models.FindPostByID("5deb9a1eb19bc5a841718027")
-	fmt.Printf("Found a single document: %+v\n", result)
 
-	var postForUpdate models.Post
-	oid, err := primitive.ObjectIDFromHex("5deb9a1eb19bc5a841718027")
+		var postToDelete models.Post
+		postToDelete.Ctime = 1575188641
+		ret := models.DeletePost(postToDelete)
+		if ret.DeletedCount == 1 {
+			log.Printf("delete ret: %v", ret)
+		}
+	*/
+	allPost, err := models.FindAllPost()
 	if err != nil {
 		log.Fatal(err)
 	}
-	postForUpdate.ID = oid
-	postForUpdate.Title = "new title M2"
-	models.UpdatePost(postForUpdate)
-
-	result = models.FindPostByID("5deb9a1eb19bc5a841718027")
-	fmt.Printf("Found a single document: %+v\n", result)
+	for index, item := range allPost {
+		log.Printf("allPost %d ret: %+v\n", index, item)
+		log.Printf("print %+v\n", reflect.ValueOf(item))
+	}
 
 	// fileter :=
 	router := gin.Default()

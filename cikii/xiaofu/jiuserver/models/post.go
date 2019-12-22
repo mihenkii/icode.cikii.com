@@ -8,9 +8,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// Post is artile
+// Post is artile,  如果_id没加omitempty tag，上层只透传其他字段，会给ID自动设置成0000000, 这样无法找到记录.
 type Post struct {
-	ID       primitive.ObjectID `bson:"_id" json:"id"`
+	ID       primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
 	Title    string             `bson:"title,omitempty" json:"title,omitempty"`
 	Content  string             `bson:"content,omitempty" json:"content,omitempty"`
 	Type     int                `bson:"type,omitempty" json:"type,omitempty"`
@@ -39,6 +39,15 @@ func (p *Post) GetID() (ID primitive.ObjectID) {
 // CreatePost function
 func CreatePost(post Post) *mongo.InsertOneResult {
 	return Insert(db, postCollection, post)
+}
+
+// DeletePost function
+func DeletePost(post Post) *mongo.DeleteResult {
+	filter, err := ConvertToDoc(post)
+	if err != nil {
+		log.Printf("%v", post)
+	}
+	return Delete(db, postCollection, filter)
 }
 
 // UpdatePost method
@@ -71,4 +80,10 @@ func FindPostByID(id string) (result interface{}) {
 	}
 	filter := bson.D{primitive.E{Key: "_id", Value: oid}}
 	return FindOne(db, postCollection, filter)
+}
+
+// FindAllPost method
+func FindAllPost() ([]interface{}, error) {
+	ret := FindMany(db, postCollection, bson.D{}, 2, 3)
+	return ret, nil
 }

@@ -119,7 +119,7 @@ func Delete(db, collection string, filter interface{}) *mongo.DeleteResult {
 	return deleteResulct
 }
 
-// ConvertToDoc to document
+// ConvertToDoc convert struct to document
 func ConvertToDoc(v interface{}) (doc *bson.M, err error) {
 	data, err := bson.Marshal(v)
 	if err != nil {
