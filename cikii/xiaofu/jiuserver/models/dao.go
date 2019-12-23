@@ -70,7 +70,7 @@ func FindOne(db, collection string, filter interface{}) (result interface{}) {
 }
 
 // FindMany documents
-func FindMany(db, collection string, filter interface{}, offset, limit int64) (results []interface{}) {
+func FindMany(db, collection string, filter interface{}, offset, limit int64) (results []bson.M) {
 	conn := connect(db, collection)
 	findOptions := options.Find()
 	findOptions.SetLimit(limit)
@@ -80,21 +80,25 @@ func FindMany(db, collection string, filter interface{}, offset, limit int64) (r
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	for cur.Next(context.TODO()) {
-		var item interface{}
-		err := cur.Decode(&item)
-		if err != nil {
-			log.Fatal(err)
-		}
-		results = append(results, &item)
-	}
-	if err := cur.Err(); err != nil {
+	if err = cur.All(context.TODO(), &results); err != nil {
 		log.Fatal(err)
 	}
-	cur.Close(context.TODO())
-	fmt.Printf("Found multiple documents (array of pointers): %+v\n", results)
-	return results
+	/*
+		for cur.Next(context.TODO()) {
+			var item bson.M
+			err := cur.Decode(&item)
+			if err != nil {
+				log.Fatal(err)
+			}
+			results = append(results, item)
+		}
+		if err := cur.Err(); err != nil {
+			log.Fatal(err)
+		}
+		cur.Close(context.TODO())
+		fmt.Printf("Found multiple documents (array of pointers): %+v\n", results)
+	*/
+	return
 }
 
 // Update document

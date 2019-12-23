@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"reflect"
 
 	"github.com/gin-gonic/gin"
 	"icode.cikii.com/cikii/xiaofu/jiuserver/models"
@@ -51,8 +50,16 @@ func main() {
 		log.Fatal(err)
 	}
 	for index, item := range allPost {
-		log.Printf("allPost %d ret: %+v\n", index, item)
-		log.Printf("print %+v\n", reflect.ValueOf(item))
+		log.Printf("index %d\t", index)
+		log.Printf("value %v \n", item)
+		/*
+			log.Printf("allPost %d ret: %+v\n", index, item)
+			log.Printf("print %+v\n", reflect.ValueOf(item))
+			value := reflect.ValueOf(item)
+			// pvalue := value.Interface().Elem()
+			pvalue := value.Elem()
+			log.Printf(" pvalue is :%+v", pvalue)
+		*/
 	}
 
 	// fileter :=

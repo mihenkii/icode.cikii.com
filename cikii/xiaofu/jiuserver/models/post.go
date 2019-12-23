@@ -83,7 +83,8 @@ func FindPostByID(id string) (result interface{}) {
 }
 
 // FindAllPost method
-func FindAllPost() ([]interface{}, error) {
+// func FindAllPost() ([]interface{}, error) {
+func FindAllPost() ([]bson.M, error) {
 	ret := FindMany(db, postCollection, bson.D{}, 2, 3)
 	return ret, nil
 }
