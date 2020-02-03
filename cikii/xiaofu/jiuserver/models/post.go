@@ -21,8 +21,12 @@ type Post struct {
 	Extra    string             `bson:"extra,omitempty" json:"extra,omitempty"`
 }
 
+// NewPost always next to Post struct define
+func NewPost() *Post {
+	return &Post{}
+}
+
 const (
-	db             = "cikii"
 	postCollection = "post"
 )
 
@@ -37,12 +41,12 @@ func (p *Post) GetID() (ID primitive.ObjectID) {
 }
 
 // CreatePost function
-func CreatePost(post Post) *mongo.InsertOneResult {
+func CreatePost(post Post) (*mongo.InsertOneResult, error) {
 	return Insert(db, postCollection, post)
 }
 
 // DeletePost function
-func DeletePost(post Post) *mongo.DeleteResult {
+func DeletePost(post Post) (*mongo.DeleteResult, error) {
 	filter, err := ConvertToDoc(post)
 	if err != nil {
 		log.Printf("%v", post)
@@ -85,6 +89,6 @@ func FindPostByID(id string) (result interface{}) {
 // FindAllPost method
 // func FindAllPost() ([]interface{}, error) {
 func FindAllPost() ([]bson.M, error) {
-	ret := FindMany(db, postCollection, bson.D{}, 2, 3)
+	ret := FindManyPagination(db, postCollection, bson.D{}, 2, 3)
 	return ret, nil
 }

@@ -1,13 +1,43 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
+	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"icode.cikii.com/cikii/xiaofu/jiuserver/config"
 	"icode.cikii.com/cikii/xiaofu/jiuserver/models"
+	"icode.cikii.com/cikii/xiaofu/jiuserver/routers"
+)
+
+var (
+	configFile string
 )
 
 func main() {
+	flag.StringVar(&configFile, "c", "", "Configure File")
+	flag.Parse()
+	c, err := config.DefaultConfig()
+	if err != nil {
+		log.Fatalf("Error loading  default config")
+	}
+	if configFile != "" {
+		c, err = config.InitConfigFromFile(configFile)
+		if err != nil {
+			log.Fatalf("Error loading config: %s", configFile)
+		}
+	}
+	log.Println(c)
+
+	models.InitDB(c)
+
+	tag := models.Tag{}
+	tag.ID = primitive.NewObjectID()
+	tag.Name = "classic"
+
+	models.CreateTag(tag)
 
 	// post := models.Post{primitive.NewObjectID(), "这是一个title3", "这是content，有长度", 1, time.Now().Unix(), time.Now().Unix(), 1, "http://www.baidu.com", ""}
 	/*
@@ -45,6 +75,7 @@ func main() {
 			log.Printf("delete ret: %v", ret)
 		}
 	*/
+
 	allPost, err := models.FindAllPost()
 	if err != nil {
 		log.Fatal(err)
@@ -60,14 +91,19 @@ func main() {
 			pvalue := value.Elem()
 			log.Printf(" pvalue is :%+v", pvalue)
 		*/
+
 	}
 
 	// fileter :=
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	router.Run()
+
+	router := routers.InitRouter()
+
+	s := &http.Server{
+		Addr:         fmt.Sprintf(":%d", c.Server.Port),
+		Handler:      router,
+		ReadTimeout:  c.Server.ReadTimeout,
+		WriteTimeout: c.Server.ReadTimeout,
+	}
+	s.ListenAndServe()
+	// router.Run()
 }
