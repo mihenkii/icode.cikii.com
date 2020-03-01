@@ -30,7 +30,7 @@ type Config struct {
 
 var defaultConfig = Config{
 	RunMode: "debug",
-	Server:  ServerConfig{Host: "localhost", Port: 8011},
+	Server:  ServerConfig{Host: "localhost", Port: 8012},
 	MongoDB: MongodbConfig{MongodbURI: "mongodb://10.232.220.42:8017"},
 }
 

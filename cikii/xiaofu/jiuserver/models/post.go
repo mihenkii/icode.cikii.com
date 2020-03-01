@@ -54,8 +54,18 @@ func DeletePost(post Post) (*mongo.DeleteResult, error) {
 	return Delete(db, postCollection, filter)
 }
 
+// DeletePostByID method
+func DeletePostByID(id string) (*mongo.DeleteResult, error) {
+	oid, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.D{primitive.E{Key: "_id", Value: oid}}
+	return Delete(db, postCollection, filter)
+}
+
 // UpdatePost method
-func UpdatePost(post Post) {
+func UpdatePost(post Post) (*mongo.UpdateResult, error) {
 	filter := bson.D{{Key: "_id", Value: post.ID}}
 	update2, err := ConvertToDoc(post)
 	if err != nil {
@@ -68,7 +78,7 @@ func UpdatePost(post Post) {
 	// update1 := bson.D{{Key: "$set", Value: bson.M{"title": post.Title, "Content": post.Content}}}
 	update3 := bson.D{{Key: "$set", Value: update2}}
 	log.Printf("%v", update2)
-	Update(db, postCollection, filter, update3)
+	return Update(db, postCollection, filter, update3)
 }
 
 // MultiInsertPost method
@@ -89,6 +99,21 @@ func FindPostByID(id string) (result interface{}) {
 // FindAllPost method
 // func FindAllPost() ([]interface{}, error) {
 func FindAllPost() ([]bson.M, error) {
-	ret := FindManyPagination(db, postCollection, bson.D{}, 2, 3)
+	ret := FindManyPagination(db, postCollection, bson.D{}, 0, 3)
+	return ret, nil
+}
+
+// FindPostByTitle method
+func FindPostByTitle(title string) (result bson.M) {
+	if title == "" {
+		log.Printf("FindPostByName where name is empty")
+	}
+	filter := bson.D{primitive.E{Key: "title", Value: title}}
+	return FindOne(db, postCollection, filter)
+}
+
+// FindPostByField method
+func FindPostByField(conds *bson.M) ([]bson.M, error) {
+	ret := FindMany(db, postCollection, conds)
 	return ret, nil
 }

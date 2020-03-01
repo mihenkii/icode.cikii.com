@@ -86,7 +86,7 @@ func GetTagByID(id string) (result interface{}) {
 }
 
 // FindTagByName method
-func FindTagByName(name string) (result interface{}) {
+func FindTagByName(name string) (result bson.M) {
 	if name == "" {
 		log.Printf("FindTagByName where name is empty")
 	}

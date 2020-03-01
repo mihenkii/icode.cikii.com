@@ -37,7 +37,7 @@ func main() {
 	tag.ID = primitive.NewObjectID()
 	tag.Name = "classic"
 
-	models.CreateTag(tag)
+	// models.CreateTag(tag)
 
 	// post := models.Post{primitive.NewObjectID(), "这是一个title3", "这是content，有长度", 1, time.Now().Unix(), time.Now().Unix(), 1, "http://www.baidu.com", ""}
 	/*

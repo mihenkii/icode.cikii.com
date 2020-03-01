@@ -12,8 +12,8 @@ import (
 	"icode.cikii.com/cikii/xiaofu/jiuserver/pkg/lib/errorcode"
 )
 
-// GetTags func
-func GetTags(c *gin.Context) {
+// GetPosts func
+func GetPosts(c *gin.Context) {
 
 	conds := make(map[string]interface{})
 
@@ -38,7 +38,7 @@ func GetTags(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ret, err := models.FindTagByField(filter)
+	ret, err := models.FindPostByField(filter)
 
 	c.JSON(http.StatusOK, gin.H{
 		"errno": errno,
@@ -47,22 +47,22 @@ func GetTags(c *gin.Context) {
 	})
 }
 
-// AddTag func
-func AddTag(c *gin.Context) {
-	var tag models.Tag
+// AddPost func
+func AddPost(c *gin.Context) {
+	var post models.Post
 	var errno int
 
-	if c.ShouldBind(&tag) == nil {
-		if IsTagExistByName(tag.Name) {
-			log.Printf("tag %s is already exist", tag.Name)
+	if c.ShouldBind(&post) == nil {
+		if IsPostExistByTitle(post.Title) {
+			log.Printf("post title %s is already exist", post.Title)
 			c.JSON(http.StatusOK, gin.H{
-				"errno": errorcode.TAG_NAME_EXSIT,
-				"msg":   errorcode.GetMsg(errorcode.TAG_NAME_EXSIT),
+				"errno": errorcode.POST_TITLE_EXSIT,
+				"msg":   errorcode.GetMsg(errorcode.POST_TITLE_EXSIT),
 				"data":  nil,
 			})
 			return
 		}
-		ret, err := models.CreateTag(tag)
+		ret, err := models.CreatePost(post)
 		if err != nil {
 			errno = errorcode.ERROR
 		} else {
@@ -80,13 +80,13 @@ func AddTag(c *gin.Context) {
 	})
 }
 
-// UpdateTag func
-func UpdateTag(c *gin.Context) {
-	var tag models.Tag
+// UpdatePost func
+func UpdatePost(c *gin.Context) {
+	var post models.Post
 	var errno = errorcode.SUCCESS
 	var ret interface{}
 
-	if c.ShouldBind(&tag) != nil {
+	if c.ShouldBind(&post) != nil {
 		errno = errorcode.ERROR
 	}
 
@@ -95,8 +95,8 @@ func UpdateTag(c *gin.Context) {
 		if err != nil {
 			errno = errorcode.ERROR
 		}
-		tag.ID = oid
-		ret, err = models.UpdateTag(tag)
+		post.ID = oid
+		ret, err = models.UpdatePost(post)
 		if err != nil {
 			errno = errorcode.ERROR
 		}
@@ -112,14 +112,14 @@ func UpdateTag(c *gin.Context) {
 
 }
 
-// DeleteTag func
-func DeleteTag(c *gin.Context) {
+// DeletePost func
+func DeletePost(c *gin.Context) {
 	var errno = errorcode.ERROR
 	var ret interface{}
 	var err error
 
 	if id := c.Param("id"); id != "" {
-		ret, err = models.DeleteTagByID(id)
+		ret, err = models.DeletePostByID(id)
 		if err == nil {
 			errno = errorcode.SUCCESS
 		}
@@ -132,14 +132,14 @@ func DeleteTag(c *gin.Context) {
 	})
 }
 
-// GetTagByID func
-func GetTagByID(c *gin.Context) {
+// GetPostByID func
+func GetPostByID(c *gin.Context) {
 
 	var errno = errorcode.ERROR
 	var ret interface{}
 
 	if id := c.Param("id"); id != "" {
-		ret = models.GetTagByID(id)
+		ret = models.FindPostByID(id)
 		if ret != nil {
 			errno = errorcode.SUCCESS
 		}
@@ -153,9 +153,9 @@ func GetTagByID(c *gin.Context) {
 
 }
 
-// IsTagExistByName func
-func IsTagExistByName(name string) bool {
-	ret := models.FindTagByName(name)
+// IsPostExistByTitle func
+func IsPostExistByTitle(title string) bool {
+	ret := models.FindPostByTitle(title)
 	if len(ret) == 0 {
 		return false
 	}

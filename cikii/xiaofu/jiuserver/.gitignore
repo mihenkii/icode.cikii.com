@@ -1,0 +1,7 @@
+.DS_Store
+.svn
+.tmp
+.*.swp
+.*.swo
+go.sum
+go.mod
