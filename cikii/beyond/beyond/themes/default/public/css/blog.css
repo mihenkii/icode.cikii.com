@@ -1,0 +1,223 @@
+/* @import url(http://fonts.googleapis.com/css?family=Roboto); */
+
+/****** LOGIN MODAL ******/
+.loginmodal-container {
+  padding: 30px;
+  max-width: 350px;
+  width: 100% !important;
+  background-color: #F7F7F7;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family: roboto;
+}
+
+.loginmodal-container h1 {
+  text-align: center;
+  font-size: 1.8em;
+  font-family: roboto;
+  color: #000;
+}
+
+.loginmodal-container input[type=submit] {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.loginmodal-container input[type=text], input[type=password] {
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.loginmodal-container input[type=text]:hover, input[type=password]:hover {
+  border: 1px solid #b9b9b9;
+  border-top: 1px solid #a0a0a0;
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.loginmodal {
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  height: 36px;
+  padding: 0 8px;
+/* border-radius: 3px; */
+/* -webkit-user-select: none;
+  user-select: none; */
+}
+
+.loginmodal-submit {
+  /* border: 1px solid #3079ed; */
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: #4d90fe;
+  padding: 17px 0px;
+  font-family: roboto;
+  font-size: 14px;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+
+.loginmodal-submit:hover {
+  /* border: 1px solid #2f5bb7; */
+  border: 0px;
+  text-shadow: 0 1px rgba(0,0,0,0.3);
+  background-color: #357ae8;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+}
+
+.loginmodal-container a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.6;
+  transition: opacity ease 0.5s;
+} 
+
+.login-help{
+  font-size: 12px;
+}
+
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.navbar-inverse {
+  background: rgb(19, 22, 25);
+}
+
+.form-control {
+  
+}
+
+
+@media (min-width: 1200px) {
+  .context .container{
+    background-color: #FFFFFF;
+    max-width: 790px;
+  }
+
+  .zan .container{
+    background-color: #FFFFFF;
+    max-width: 790px;
+  }
+
+  .comment .container{
+    background-color: #FFFFFF;
+    max-width: 790px;
+  }
+
+  .commentList .container{
+    background-color: #FFFFFF;
+    max-width: 790px;
+  }
+
+}
+
+body {
+  background-color: #f5f8fa;
+}
+
+
+.context .container p{
+  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  letter-spacing: -0.01em;
+  word-spacing: 0.2em;
+  font-size: 17px;
+  font-weight: 0.5;
+  line-height: 1.6;
+  border: 0px;
+  outline: 0px;
+  margin-top: 2px;
+  margin-bottom: 12px;
+}
+.zan .container button {
+  margin: 5px;
+}
+
+/* 评论样式*/
+.commentList .container ul{
+    padding: 10px 0px 10px 0px;
+    list-style:none;
+}
+
+.commentList .container li{
+    display:list-item;
+}
+
+.commentList h4 {
+    font-size:15px;
+    color:#337ab7;
+}
+.commentList .cm_date {
+    font-size: 14px;
+    margin-left: 5px;
+    color:#999;
+}
+.commentList .cm_floor {
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+    color:#999;
+}
+
+.commentList .cm_reply {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+    color:#337ab7;
+}
+
+.newComment {
+    vertical-align:middle;
+    font-size:12px;
+}
+
+.avatar {
+    width: 50px; 
+    height: 50px;
+    display: inline-block;
+    left:0;
+    top: 3px;
+}
+
+/**
+ *  写作页面样式
+*/
+
+
+body {
+    background-color: #FFFFCC;
+}
+
+.navbar-default {
+    border: none;
+    background: #FFFFCC;
+}
+
+#headerul li:hover {
+    color:#fff;
+    background-color: #CC99CC;
+}
+

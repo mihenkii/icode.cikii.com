@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/faviconcompress.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+<title></title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/login.css">
+<script src="js/respond.min.js"></script>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/jssor.slider.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+
+
+</head>
+<body>
+<!-- 透明导航
+  <div class="navbar-wrapper">
+    <nav class="navbar navbar-inverse no-border navbar-fixed-top ">
+      this is nav
+    </nav>
+  </div>
+  -->
+<div class="header">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.cikii.com"><h2>Cikii</h2></a>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <div class="logo"></div>
+          <nav class="navbar navbar-right " role="navigation">
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation"><a href="http://beyond.cikii.com"><h4>首页</h4></a></li>
+              <li role="presentation"><a href="http://beyond.cikii.com/index/index/intro"><h4>乐队简介</h4></a></li>
+              <li role="presentation"><a href="#"><h4>Story</h4></a></li>
+              <?php 
+              if("true"=="$logged") {
+              echo '<li role="presentation"><a href="#"><h4>'. $username .'</h4></a></li>';
+              // echo '<li role="presentation"><h4 style="padding:10px 15px" data-toggle="modal" data-target=".bs-example-modal-sm">退出</h4></li>'; 
+              echo '<li role="presentation"><a href="#"><h4 data-toggle="modal" data-target=".bs-example-modal-sm">退出</h4></a> </li>'; 
+              } else {
+              echo '<li class="nav_register" role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal"><h4>登录</h4></a></li>';
+              } 
+              ?>
+              <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">确定要退出cikii?</h4>
+                  </div>
+                  <div class="modal-dialog modal-sm">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                      <a href="http://beyond.cikii.com/user/index/logout"><button type="button" class="btn btn-primary">确定</button></a>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          </nav>
+    </div>
+
+    <!--登录框 -->
+    <div class="modal fade" style="display:none; color:#000" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="loginmodal-container">
+          <h1>登录Cikii</h1><br>
+          <form id="loginForm">
+            <input type="text" name="username" placeholder="用户名">
+            <input type="password" name="password" placeholder="密码">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+          </form>
+          <div class="login-help">
+            <a href="http://beyond.cikii.com/user/register/edit">注册新用户</a> - <a href="#">找回密码</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row sitename">
+      <div class="col-xs-12">
+        <div class="logotext">
+          <h1>BEYOND</h1>
+        </div>
+        <div class="site-name text-center">
+          <!-- Indicates a successful or positive action -->
+          <a href="http://beyond.cikii.com/blog/index/index"><button type="button" class="btn btn-success">活动报名</button></a>
+          <!-- Contextual button for informational alert messages -->
+          <a href="http://beyond.cikii.com/blog/index/index"><button type="button" class="btn btn-info">进入blog</button></a>
+        </div>
+      </div>
+    </div>
+  </div> <!-- container -->
+</div> <!-- header -->
+
+
+<div class="container">
+
+
+  <blockquote>
+    <h3>He's the chosen ONE.</h3></br>
+    <p>生命不在乎得到什么，在乎做过什么"</p>
+    <footer> 黄家驹 <cite title="Source Title"> - 1993. 生命接触演唱会</cite></footer>
+  </blockquote>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <a href="http://beyond.cikii.com/index/index/huangjiaju">
+        <img class="img-circle" src="images/intro_hjj2.png" width="140" height="140">
+      </a>
+      <h2>黄家驹</h2>
+    </div>
+
+    <div class="col-lg-3">
+      <a href="http://beyond.cikii.com/index/index/huangjiaqiang">
+        <img class="img-circle" src="images/intro_hjq.png" width="140" height="140">
+      </a>
+      <h2>黄家强</h2>
+    </div>
+
+    <div class="col-lg-3">
+      <a href="http://beyond.cikii.com/index/index/huangguanzhong">
+        <img class="img-circle" src="images/intro_hgz.png" width="140" height="140">
+      </a>
+      <h2>黄贯中</h2>
+    </div>
+
+    <div class="col-lg-3">
+      <a href="http://beyond.cikii.com/index/index/yeshirong">
+        <img class="img-circle" src="images/intro_ysr.png" width="140" height="140">
+      </a>
+      <h2>叶世荣</h2>
+    </div>
+  </div> <!--row -->
+
+  <hr class="featurette-divider">
+
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">
+        BEYOND
+        <span class="text-muted">最新动态</span>
+      </h2>
+      <p class="lead">
+        Beyond
+        Beyond
+        Beyond
+        Beyond
+        Beyond
+        Beyond
+      </p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive center-block" src="images/beyond_news_400x400.png" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7 col-md-push-5">
+      <h2 class="featurette-heading">Beyonder
+        <span class="text-muted">活动</span>
+      </h2>
+      <p class="lead">
+        BEYOND
+      </p>
+    </div>
+    <div class="col-md-5 col-md-pull-7">
+      <img class="featurette-image img-responsive center-block" src="images/beyond_fans_400x400.png" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">
+        Beyonder
+        <span class="text-muted">空间</span>
+      </h2>
+      <p class="lead">
+        <div class="hotPost">
+            <ul>
+                <li>Beyond</li>
+            </ul>
+        </div>
+      </p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive center-block" src="images/beyond_space_400x400.png" alt="Generic placeholder image">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+<!--
+  <div id="myTabs">
+    <ul class="nav nav-tabs nav-justified">
+      <li role="presentation" class="active"><a href="#news"><h4>最新动态</h4></a></li>
+      <li role="presentation"><a href="#beyond_intro"><h4>乐队介绍</h4></a></li>
+      <li role="presentation"><a href="#beyond_story"><h4>乐队往事</h4></a></li>
+      <li role="presentation"><a href="#fansvotes"><h4>歌迷活动</h4></a></li>
+      <li role="presentation"><a href="#beyonder"><h4>Beyonder</h4></a></li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="news">this is news</div>
+      <div role="tabpanel" class="tab-pane" id="beyond_intro">this is intro</div>
+      <div role="tabpanel" class="tab-pane" id="beyond_story">beyond story</div>
+      <div role="tabpanel" class="tab-pane" id="fansvotes">fans votes</div>
+      <div role="tabpanel" class="tab-pane" id="beyonder">Beyonder，是一个专门为各位Beyonder开放的博客，每个人都可以记录自己和Beyond相关的一切趣事。 属于你的一片净土.</div>
+    </div>
+  </div>
+-->
+
+</div> <!-- container -->
+
+<hr class="featurette-divider">
+<!-- footer start -->
+<div class="footerWrapper">
+    <div class="item footer dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center social">
+              <h2>We are Beyonder</h2>
+              <span>Get busy living or get busy dying.</span><br>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+$('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+$('#login-modal').on('shown', function() {
+    $(document).off('focusin.modal');
+});
+
+  
+$(function(){
+  $("#loginForm").submit(function(event){
+    event.preventDefault(); /* 阻止url变化 */
+    layer.load(1);
+    $.ajax({
+      url: "http://beyond.cikii.com/user/index/login",
+      method: "POST",
+      data: $("#loginForm").serialize(),
+      dataType: "json",
+      /*
+      success: function(data) {
+        if (data.ret == "success") {
+  		      window.location.href = "http://beyond.cikii.com"
+        }
+      },
+      error: function(data) {
+        layer.closeAll('loading');
+        layer.msg('用户名或密码错误,登录失败', 
+                    {
+                      time: 2000,
+                    }
+                 );
+      },
+      */
+      complete: function(data) {
+        var returnText = eval("(" + data.responseText + ")" );
+        if (data.status == 200 && returnText.ret == "success") {
+          alert("come on");
+  		      window.location.href = "http://beyond.cikii.com"
+                window.location.reload();
+        } else {
+          layer.closeAll('loading');
+          layer.msg('用户名或密码错误,登录失败', 
+                    {
+                      time: 2000,
+                    }
+                 );
+               }
+  	window.location.href = "http://beyond.cikii.com"
+      }
+    });
+  });
+});
+
+// 获取hot blog
+$(function(){
+    layer.load(1);
+    $.ajax({
+      url: "http://beyond.cikii.com/index/index/hotBlog",
+      method: "GET",
+      dataType: "json",
+      success: function(data) {
+        debugger;
+        // alert(data.data);
+        layer.closeAll('loading');
+        if (data.ret == "success") {
+            for (var i=0; i<data.data.length; i++) {
+                $(".hotPost ul").append("<li>"+data.data[i].title+"</li>");  
+            }
+        }
+      },
+      error: function(data) {
+        layer.closeAll('loading');
+        layer.msg('获取热门评论失败', 
+                    {
+                      time: 2000,
+                    }
+                 );
+      },
+    }); // hot port ajax
+});
+
+</script>
+
+</body>
+</html>

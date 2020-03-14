@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/faviconcompress.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+<title></title>
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/base.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/blog.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/umeditor.min.css">
+<script src="<?php echo __STATIC_FILE__;?>/js/respond.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/html5shiv.min.js"></script>
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" >
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Beyond</a>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">博客</a></li>
+          <li><a href="#">活动报名</a></li>
+          <li><a href="#">Beyond 新闻</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../navbar/">Default</a></li>
+          <li><a href="../navbar/">Default</a></li>
+          <li><a href="../navbar/">Default</a></li>
+        </ul>
+      </div> <!-- nav-collapse -->
+    </div>
+  </nav>
+
+<!-- Main component for a primary marketing message or call to action -->
+  <div class="container">
+    <h3> <?php $post_obj = json_decode($post); echo ($post_obj->title); ?> </h3>
+    <hr></hr>
+    <h5>2015-12-20 User1</h5></br>
+
+  </div> <!--  介绍 container -->
+
+
+<script src="<?php echo __STATIC_FILE__;?>/js/jssor.slider.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/jquery.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/validator.js"></script>
+<!--
+<script src="<?php echo __STATIC_FILE__;?>/js/lang/zh-cn/zh-cn.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/umeditor.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/umeditor.config.js"></script>
+-->
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+<script type="text/javascript">
+  // var um = UM.getEditor('file');
+
+</script>
+</body>
+</html>

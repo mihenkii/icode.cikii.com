@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/faviconcompress.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+<title>beyond</title>
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/intro.css">
+<script src="<?php echo __STATIC_FILE__;?>/js/respond.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/html5shiv.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/jquery.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+</head>
+
+<body>
+<div class="header">
+  <div class="container">
+  
+  
+      	<nav role="navigation" class="navbar navbar-default">
+			<div class="navbar-header">
+				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+    				<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+    			</button>
+				<a class="navbar-brand" href="http://beyond.cikii.com"><h2>BEYOND</h2></a>
+    		</div>
+    								
+    		<div id="navbar-collapse-02" class="collapse navbar-collapse">
+    			<ul	id="headerul" class="nav navbar-nav navbar-right">			      
+					  <li role="presentation"><a href="http://beyond.cikii.com"><h4>首页</h4></a></li>
+					  <li role="presentation"><a href="http://beyond.cikii.com/index/index/intro"><h4>乐队简介</h4></a></li>
+					  <li role="presentation"><a href="#"><h4>Story</h4></a></li>
+					  <?php 
+					  if("true"=="$logged") {
+					  echo '<li role="presentation"><a href="#"><h4>'. $username .'</h4></a></li>';
+					  echo '<li role="presentation"><a href="#"><h4 data-toggle="modal" data-target=".bs-example-modal-sm">退出</h4></a> </li>'; 
+					  } else {
+					  echo '<li class="nav_register" role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal"><h4>登录</h4></a></li>';
+					  } 
+					  ?>
+					  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						<div class="modal-dialog modal-sm">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">确定要退出cikii?</h4>
+						  </div>
+						  <div class="modal-dialog modal-sm">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							  <a href="http://beyond.cikii.com/user/index/logout"><button type="button" class="btn btn-primary">确定</button></a>
+						  </div>
+						</div>
+					  </div>
+    			</ul> 		      
+    		</div><!-- /.navbar-collapse -->	
+		<nav
+
+    <!--登录框 -->
+
+    <div class="modal fade" style="display:none; color:#000" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="loginmodal-container">
+          <h1>登录Cikii</h1><br>
+          <form id="loginForm">
+            <input type="text" name="username" placeholder="用户名">
+            <input type="password" name="password" placeholder="密码">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+          </form>
+          <div class="login-help">
+            <a href="http://beyond.cikii.com/user/register/edit">注册新用户</a> - <a href="#">找回密码</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- container -->
+</div> <!-- header -->
+
+<div class="bs-docs-header">
+	<div class="container">
+		<h1>冷雨夜</h1>
+		<p>“我希望我们可能继续努力,永远,永远不会让你们失望,也希望你们永远记得我们是四位一体的!!”.<br>
+			 － 黄家强
+		</p>
+	</div>
+</div>
+
+
+
+<div class="container">
+  <blockquote>
+    <h3>The chosen ONE.</h3></br>
+    <p>生命不在乎得到什么，在乎做过什么"</p>
+    <footer> 黄家驹 <cite title="Source Title"> - 1993. 生命接触演唱会</cite></footer>
+  </blockquote>
+  <hr class="featurette-divider">
+</div>
+
+
+<script type="text/javascript">
+
+$('#login-modal').on('shown', function() {
+    $(document).off('focusin.modal');
+});
+
+  
+  $(function(){
+    $("#loginForm").submit(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/user/index/login",
+        method: "POST",
+        data: $("#loginForm").serialize(),
+        dataType: "json",
+        /*
+        success: function(data) {
+          if (data.ret == "success") {
+			      window.location.href = "http://beyond.cikii.com"
+          }
+        },
+        error: function(data) {
+          layer.closeAll('loading');
+          layer.msg('用户名或密码错误,登录失败', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        },
+        */
+        complete: function(data) {
+          var returnText = eval("(" + data.responseText + ")" );
+          if (data.status == 200 && returnText.ret == "success") {
+			      window.location.href = "http://beyond.cikii.com"
+          } else {
+            layer.closeAll('loading');
+            layer.msg('用户名或密码错误,登录失败', 
+                      {
+                        time: 2000,
+                      }
+                   );
+                 }
+        }
+      });
+    });
+  });
+
+</script>
+
+</body>
+</html>

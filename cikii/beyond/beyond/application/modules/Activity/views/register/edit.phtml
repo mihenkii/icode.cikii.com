@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/faviconcompress.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+<title></title>
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/base.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/login.css">
+<script src="<?php echo __STATIC_FILE__;?>/js/respond.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/html5shiv.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/jssor.slider.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/jquery.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/validator.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="container">
+  <form  id="addUserForm" name="addUser" class="form-horizontal" data-toggle="validator">
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
+      <div class="col-sm-4">
+        <input type="email" class="form-control" id="inputEmail3" name="username" placeholder="Email" data-error="Bruh, that email address is invalid" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+      <div class="col-sm-4">
+        <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password" data-minlength="6" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">再次输入密码</label>
+      <div class="col-sm-4">
+        <input name="confirmpass" type="password" class="form-control" placeholder="Password" data-match="#inputPassword3" data-match-error="两次输入不一致" required>
+        <div class="help-block with-errors"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">输入验证码</label>
+      <div class="col-sm-2">
+        <input name="captcha_code" class="form-control" data-remote="http://beyond.cikii.com/captcha/captcha_valid.php" id="inputPassword3" data-error="验证码不正确" placeholder="请输入验证码">
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="col-sm-2">
+      <!-- 在label里加了个 style="padding-top: 0px;" -->
+          <img title="点击刷新" src="http://beyond.cikii.com/captcha/captcha_code_file.php?rand=<?php echo rand();?>" alt="点击刷新" style="border: 1px solid" onclick="this.src='http://beyond.cikii.com/captcha/captcha_code_file.php?rand='+Math.random();">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" checked> 我同意cikii的相关协议
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button id="submit" type="submit" class="btn btn-default">注册</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  
+  $(function(){
+    $("#addUserForm").submit(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/user/register/add",
+        method: "POST",
+        data: $("#addUserForm").serialize(),
+        dataType: "json",
+        success: function(data) {
+          if (data.ret == "success") {
+            layer.closeAll('loading');
+            layer.msg('恭喜,注册成功', 
+                      {
+                        time: 2000,
+                      }
+                      );
+          window.location.href = "http://beyond.cikii.com"
+          }
+        },
+        error: function(data) {
+          layer.closeAll('loading');
+          layer.msg('对不起,注册失败', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
