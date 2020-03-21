@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title></title>
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/cropper.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/webuploader.css">
+</head>
+
+<body>
+
+<div class="container">
+	<div class="col-md-4">
+		<div class="fileinput fileinput-new">
+			<div id="old-thumbnail" class="thumbnail fileinput-new" style="width: 100px; height: 100px;"></div>
+			<!-- <div class="container fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 300px; width:300px; height: 300px;"></div> -->
+		</div>
+		<div id="uploader-demo" class="wu-example">
+			<div id="fileList" class="uploader-list"></div>
+			<div id="filePicker">选择头像</div>
+			<div class="panel" hidden>
+				<a id="commit" href="javascript:void(0)" class="btn btn-default fileinput-exists">确定</a> <a id="cancel" href="#" class="btn btn-default fileinput-exists">取消</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+	    <span class="preview-big" hidden>预览效果</span>
+	    <div class="thumbnail-preview" style="width: 100px; height: 100px; overflow: hidden;"></div>
+    </div>
+</div>
+<!--
+-->
+
+<script src="<?php echo __STATIC_FILE__;?>/js/jquery.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/cropper.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/webuploader.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+<!--
+<script src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.min.js"></script>
+-->
+<script>
+
+
+/*
+$("button").click(function(){
+  $('.container > img').cropper({
+    aspectRatio: 1 / 1,
+    crop: function(data) {
+    // Output the result data for cropping image.
+    },
+	preview: ".thumbnail-preview",
+  });
+});
+
+$(document).on("load", "img", function() {
+  alert("ca");
+  $('.container > img').cropper({
+    aspectRatio: 1 / 1,
+    crop: function(data) {
+    // Output the result data for cropping image.
+    },
+	preview: ".thumbnail-preview",
+  });
+});
+*/
+
+var x;
+var y;
+var width;
+var height;
+var file_original_name;
+
+
+// 图片上传demo
+jQuery(function() {
+    var $ = jQuery,
+    $list = $('#fileList'),
+    ratio = window.devicePixelRatio || 1,
+    thumbnailWidth = 300 * ratio,
+    thumbnailHeight = 300 * ratio,
+    uploader;
+    // 初始化Web Uploader
+    uploader = WebUploader.create({
+      auto: true,
+      swf: '<?php echo __STATIC_FILE__;?>/js/Uploader.swf',
+      server: 'http://beyond.cikii.com/fileupload.php',
+      pick: '#filePicker',
+      fileNumLimit: 1,
+      accept: {
+        title: 'Images',
+        extensions: 'gif,jpg,jpeg,bmp,png',
+        mimeTypes: 'image/*'
+      },
+	  thumb:{
+		allowMagnify: false,
+		crop: true,
+	  },
+    });
+
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+      // alert(file.name);
+      $('#old-thumbnail').hide();
+      var $li = $(
+        '<div id="' + file.id + '" class="file-item thumbnail">' +
+        '<img>' +
+		/*
+        '<div class="info">' + file.name + '</div>' +
+		*/
+        '</div>'
+      );
+      $list.append($li);
+	  
+	  var $img = $li.find('img');
+	  
+	  
+	  $img.on("load", function() {
+		// debugger;
+		$(this).cropper({
+			aspectRatio: 1 / 1,
+			crop: function(data) {
+                x = data.x;
+                y = data.y;
+                width = data.width;
+                height = data.height;
+			// Output the result data for cropping image.
+			},
+			preview: ".thumbnail-preview",
+		});
+		$(".thumbnail-preview").addClass("thumbnail");
+		$("#filePicker").hide();
+		$(".panel").show();
+		$(".preview-big").show();
+	  });
+	  
+
+      uploader.makeThumb( file, function( error, src ) {
+        if ( error ) {
+          $img.replaceWith('<span>不能预览</span>');
+          return;
+        }
+        $img.attr( 'src', src ); 
+      }, 1, 1);
+	  
+	  $('#cancel').click(function(fiel){	
+		uploader.removeFile( file );
+		location.reload()
+	  });
+	  
+    });
+
+    uploader.on( 'uploadSuccess', function( file ){
+      $( '#'+file.id).addClass("upload-state-done");
+      file_original_name = file.name;
+      console.log(uploader.getFiles());
+      console.log(file.name);
+
+      // $( '#'+file.id).find('p.state').text('已上传');
+      debugger;
+    });
+	
+	
+});
+
+// 点击确定按钮，发送已经截图的坐标信息到server端， server负责截图
+$("#commit").click(function(event){
+    event.preventDefault();
+	var userId = "<?php echo $userId?>";
+      if(userId=="" || userId==null) {
+        $('#login-modal').modal();
+      }else {
+        $.ajax({
+          method: "GET",
+          dataType: "json",
+		  data:{
+              file_original_name: file_original_name,
+			  x: x,
+			  y: y,
+			  width: width,
+			  height: height
+			  },
+          url: "http://beyond.cikii.com/user/register/addthumbnail/userId/<?=$userId?>",
+          // 一个坑， complete 和 success方法的返回值区别很大
+          // 用success可以直接解析返回的json，complete很麻烦
+          // complete: function(data) {
+          success: function(data) {
+            if (data.ret == "success") {
+                layer.closeAll('loading');
+                layer.msg('头像上传成功', 
+                    {
+                        time:2000,
+                    }
+                );
+                window.location.href = "http://beyond.cikii.com"
+            } else {
+                layer.closeAll('loading');
+                layer.msg('头像上传失败, 请重试', 
+                    {
+                        time:2000,
+                    }
+                );
+            }
+          } // complete
+        }); // ajax
+      } // else	
+});
+    </script>
+    </body>
+</html>

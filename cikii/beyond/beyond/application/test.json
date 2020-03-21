@@ -1,0 +1,1 @@
+ { [0]=> object(stdClass)#33 (5) { ["_id"]=> object(MongoDB\BSON\ObjectID)#32 (1) { ["oid"]=> string(24) "56671c719fbfb2653a5bca68" } ["postId"]=> int(2) ["userId"]=> NULL ["title"]=> string(7) "标题5" ["postContent"]=> string(32) "<p>就是标题5</p>" } }

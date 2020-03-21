@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/faviconcompress.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+<title></title>
+<link rel="stylesheet" href="http://staticbeyond.cikii.com/themes/default/public/js/bootstrap.min.js">
+<link rel="stylesheet" href="http://staticbeyond.cikii.com/themes/default/public/js/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://staticbeyond.cikii.com/themes/default/public/css/umeditor.min.css">
+<link rel="stylesheet" href="http://staticbeyond.cikii.com/themes/default/public/css/blog.css">
+<!--blog_list.css 引入要在blog.css之后 .body颜色 有冲突-->
+<link rel="stylesheet" href="http://staticbeyond.cikii.com/themes/default/public/css/blog_list.css">
+<script src="http://staticbeyond.cikii.com/themes/default/public/js/respond.min.js"></script>
+<script src="http://staticbeyond.cikii.com/themes/default/public/js/html5shiv.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://beyond.cikii.com/ueditor/ueditor.parse.min.js" ></script>
+
+
+</head>
+
+<body>
+<div class="header">
+  <div class="container">
+  
+      	<nav role="navigation" class="navbar navbar-default">
+			<div class="navbar-header">
+				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+    				<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+    			</button>
+				<a class="navbar-brand" href="http://beyond.cikii.com/"><h2>BEYOND</h2></a>
+    		</div>
+    								
+    		<div id="navbar-collapse-02" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav headerul">
+					<li><a href="http://beyond.cikii.com/blog/index/index"><h5>博客首页</h5></a></li>
+					<li><a href="#"><h5>活动报名</h5></a></li>
+					<li><a href="#"><h5>story</h5></a></li>
+				</ul>
+    			<ul	id="headerul" class="nav navbar-nav navbar-right">			      
+					  <li><a href="../navbar/"><h5>我的博客</h5></a></li>
+					  <li><a href="../navbar/"><h5>我的活动</h5></a></li>
+					  
+					  <?php 
+					  if("true"=="$logged") {
+					  echo '<li role="presentation"><a href="#"><h5>'. $showname .'</h5></a></li>';
+					  echo '<li role="presentation"><a href="#"><h5 data-toggle="modal" data-target=".bs-example-modal-sm">退出</h5></a> </li>'; 
+					  } else {
+					  echo '<li class="nav_register" role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal"><h5>登录</h5></a></li>';
+					  } 
+					  ?>
+					  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						<div class="modal-dialog modal-sm">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">确定要退出cikii?</h4>
+						  </div>
+						  <div class="modal-dialog modal-sm">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							  <a href="http://beyond.cikii.com/user/index/logout"><button type="button" class="btn btn-primary">确定</button></a>
+						  </div>
+						</div>
+					  </div>
+    			</ul> 		      
+    		</div><!-- /.navbar-collapse -->	
+		<nav
+
+    <!--登录框 -->
+
+    <div class="modal fade" style="display:none; color:#000" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="loginmodal-container">
+          <h1>登录Cikii</h1><br>
+          <form id="loginForm">
+            <input type="text" name="username" placeholder="用户名">
+            <input type="password" name="password" placeholder="密码">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+          </form>
+          <div class="login-help">
+            <a href="http://beyond.cikii.com/user/register/edit">注册新用户</a> - <a href="#">找回密码</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- container -->
+</div> <!-- header -->
+<hr>
+
+<!-- Main component for a primary marketing message or call to action -->
+  <div class="context">
+    <div class="container">
+      <h3> <?php $post_obj = json_decode($post); echo ($post_obj->title); ?> </h3>
+      <hr style="border-color:#fff"></hr>
+      <h5><?php $t=$post_obj->ctime; echo(date("Y-m-d",$t)); echo " --- \t @".$nickname ?> </h5></br>
+      <?php echo (htmlspecialchars_decode($post_obj->postContent)); ?>
+      <hr style="border-color:#fff"></hr>
+
+    </div> <!-- blog正文 container -->
+  </div>
+
+  <div class="zan">
+    <div class="container text-center">
+      <button id="upId" type="button" class="btn btn-default" aria-label="Up">
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 顶 <span class="badge badgeUp"><?=$upNum?></span>
+      </button>
+      <button id="downId" type="button" class="btn btn-default" aria-label="Down">
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> 踩 <span class="badge badgeDown"><?=$downNum?></span>
+      </button>
+    </div>
+  </div> <!-- 点赞 -->
+
+  <hr></hr>
+
+  <div class="comment">
+    <div class="container">
+        <form id="commentForm">
+            <input class="form-control" name="userId" type="hidden" value="<?=$userId?>"></input>
+            <input class="form-control" name="postId" type="hidden" value="<?=$post_obj->postId?>"></input>
+            <textarea name="commentContent" class="form-control" rows="3" placeholder="评论请多于6字并少于300个字..." maxlength="300" required id="minle" oninvalid="this.setCustomValidity('请输入正确评论')"></textarea>
+            <button class="btn btn-info pull-right btn-submit" type="submit">&nbsp;&nbsp;发布&nbsp;&nbsp;</button>
+        </form>
+    </div> <!-- 评论 container -->
+  </div>
+
+  <hr></hr>
+
+  <div class="commentList">
+      <div class="container">
+        <ul class="media-list">
+            <li></li>
+        </ul>
+        
+      </div>
+  </div>
+
+   <div class="modal fade" style="display:none; color:#000" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModal    Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="loginmodal-container">
+        <h1>登录Cikii</h1><br>
+        <form id="loginForm">
+          <input type="text" name="username" placeholder="用户名">
+          <input type="password" name="password" placeholder="密码">
+          <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+        </form>
+        <div class="login-help">
+          <a href="http://beyond.cikii.com/user/register/edit">注册新用户</a> - <a href="#">找回密码</a>
+        </div>
+      </div>
+    </div>
+   </div>
+   
+   
+  <div class="modal fade" id="cm_reply_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">新消息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="replyCommentForm">
+		  <input class="form-control" name="userId" type="hidden" value="<?=$userId?>"></input>
+		  <input class="form-control" name="postId" type="hidden" value="<?=$post_obj->postId?>"></input>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">回复:</label>
+            <input type="text" class="form-control" id="recipient-name" name="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">消息:</label>
+            <textarea class="form-control" id="message-text" name="commentContent"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="cm_reply_commit" class="btn btn-primary">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="<?php echo __STATIC_FILE__;?>/js/jssor.slider.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/jquery.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/validator.js"></script>
+<!--
+<script src="<?php echo __STATIC_FILE__;?>/js/lang/zh-cn/zh-cn.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/umeditor.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/umeditor.config.js"></script>
+-->
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+<script type="text/javascript">
+
+
+// 赞
+  var userId = "<?php echo $userId ?>";
+  $(function(){
+    $("#upId").click(function(event) {
+      event.preventDefault();
+      if(userId=="" || userId==null) {
+        $('#login-modal').modal();
+      }else {
+        $.ajax({
+          method: "GET",
+          dataType: "json",
+          url: "http://beyond.cikii.com/blog/home/up/userId/<?=$userId?>/postId/<?=$post_obj->postId?>",
+          complete: function(data) {
+            var returnText = eval("(" + data.responseText + ")" );
+            if (data.status == 200 && returnText.ret == "success") {
+              $(".badgeUp").html(returnText.upNum);
+            } 
+          } // complete
+        }); // ajax
+      } // else
+    }); // upclick
+// 踩
+    $("#downId").click(function(event) {
+      event.preventDefault();
+      if(userId=="" || userId==null) {
+        $('#login-modal').modal();
+      }else {
+        $.ajax({
+          method: "GET",
+          dataType: "json",
+          url: "http://beyond.cikii.com/blog/home/down/userId/<?=$userId?>/postId/<?=$post_obj->postId?>",
+          complete: function(data) {
+            var returnText = eval("(" + data.responseText + ")" );
+            if (data.status == 200 && returnText.ret == "success") {
+              $(".badgeDown").html(returnText.downNum);
+            } 
+          } // complete
+        }); // ajax
+      } // else
+    }); // downclick
+}); // click
+
+// 登陆
+$(function(){
+    $("#loginForm").submit(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/user/index/login",
+        method: "POST",
+        data: $("#loginForm").serialize(),
+        dataType: "json",
+        /*
+        success: function(data) {
+          if (data.ret == "success") {
+			      window.location.href = "http://beyond.cikii.com"
+          }
+        },
+        error: function(data) {
+          layer.closeAll('loading');
+          layer.msg('用户名或密码错误,登录失败', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        },
+        */
+        complete: function(data) {
+          var returnText = eval("(" + data.responseText + ")" );
+          if (data.status == 200 && returnText.ret == "success") {
+			      window.location.href = window.location .href;
+          } else {
+            layer.closeAll('loading');
+            layer.msg('用户名或密码错误,登录失败', 
+                      {
+                        time: 2000,
+                      }
+                   );
+                 }
+        }
+      });
+    });
+  });
+
+// comments 如果评论内容为空，则不能提交
+
+// 增加评论
+$(function(){
+    $("#commentForm").submit(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+      if(userId=="" || userId==null) /* 如果用户未登录，弹出登陆框 */
+        $('#login-modal').modal();
+	  var comment = $("#minle").val();
+	  if (comment.length < 6) {
+		   layer.msg('客官惜字如金，请多于2个字', 
+                        {
+                          time: 2000,
+                        }
+                     );
+		  return false;
+	  }
+
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/blog/comment/addComment",
+        method: "POST",
+        data: $("#commentForm").serialize(),
+        dataType: "json",
+        success: function(data) {
+          if (data.ret == "success") {
+            layer.closeAll('loading');
+            layer.msg('评论成功', 
+                        {
+                          time: 2000,
+                        }
+                     );
+			
+			$(".commentList .container ul").prepend("<li class=\"media\">"
+                + "<div class=\"media-left\">" 
+                + "<a class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/" +data.thumbnail+"\" width=\"50\" height=\"50\"></img></a>"
+                +"</div>"
+                + "<div class=\"media-body\"><a><h4>" + data.nickname + 
+				"</a><span class=\"cm_date\">"+ data.cdate 
+				+"</span><a data-toggle=\"modal\" data-target=\"#cm_reply_id\" data-whatever=\"@" +data.nickname+ "\" ><span class=\"cm_reply pull-right\">回复</span></a>" +"</h4>" +
+                "<p>"+data.commentContent+"</p>"+
+                "<div class=\"cm_floor\">"+data.commentId+"楼<hr></div>" +
+                "</div></li>");
+			
+          } else {
+            layer.closeAll('loading');
+            /*
+            layer.msg('sorry, 评论失败了. 估计是系统问题', 
+                        {
+                          time: 2000,
+                        }
+                     );
+                     */
+            }
+        },
+        error: function(data) {
+          alert(data);
+          layer.closeAll('loading');
+          layer.msg('sorry, 评论失败了. 估计是系统问题,联系cikii管理员', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        },
+      });
+    });
+});
+
+// 评论回复框
+$('#cm_reply_id').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('回复评论 ' + recipient)
+  modal.find('.modal-body #recipient-name').val(recipient)
+});
+
+  
+/***
+* 回复评论
+*/
+$(function(){
+    $("#cm_reply_commit").click(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+	  var recipientName = $("#recipient-name").val();
+	  var messageText = $("#message-text").val();
+	  if (messageText.length < 3) {
+		   layer.msg('客官惜字如金，请多于3个字', 
+                        {
+                          time: 2000,
+                        }
+                     );
+		  return false;
+	  }
+
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/blog/comment/replyComment",
+        method: "POST",
+        data: $("#replyCommentForm").serialize(),
+        dataType: "json",
+        success: function(data) {
+          if (data.ret == "success") {
+            layer.closeAll('loading');
+            layer.msg('评论成功', 
+                        {
+                          time: 2000,
+                        }
+                     );
+			
+			$(".commentList .container ul").prepend("<li class=\"media\">"
+                + "<div class=\"media-left\">" 
+                + "<a class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/" +data.thumbnail+"\" width=\"50\" height=\"50\"></img></a>"
+                +"</div>"
+                + "<div class=\"media-body\"><a><h4>" + data.nickname + 
+				"</a><span class=\"cm_date\">"+ data.cdate 
+				+"</span><a data-toggle=\"modal\" data-target=\"#cm_reply_id\" data-whatever=\"@" +data.nickname+ "\" ><span class=\"cm_reply pull-right\">回复</span></a>" +"</h4>" +
+                "<p><a>"+recipientName+"</a>"+data.commentContent+"</p>"+
+                "<div class=\"cm_floor\">"+data.commentId+"楼<hr></div>" +
+                "</div></li>");
+				/*关闭评论框*/
+				$('#cm_reply_id').modal('hide')
+			
+          } else {
+            layer.closeAll('loading');
+            layer.msg('sorry, 评论失败了. 估计是系统问题', 
+                        {
+                          time: 2000,
+                        }
+                     );
+            }
+        },
+        error: function(data) {
+          alert(data);
+          layer.closeAll('loading');
+          layer.msg('sorry, 评论失败了. 估计是系统问题,联系cikii管理员', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        },
+      });
+    });
+  });
+  
+  
+/**
+* 展示所有评论
+*/
+  $(function(){
+      $.ajax({
+        url: "http://beyond.cikii.com/blog/comment/list/postId/<?=$post_obj->postId?>",
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+          if (data.result == true) {
+            layer.closeAll('loading');
+
+            for(var i=0; i<data.data.length; i++) {
+				if(data.data[i].thumbnail==null) {
+					data.data[i].thumbnail='thumbnail/b_thumbnail.png';
+				}
+				if(data.data[i].replyId == null){
+					$(".commentList .container ul").prepend("<li class=\"media\">"
+					+ "<div class=\"media-left\">" 
+					+ "<a class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/" +data.data[i].thumbnail+"\" width=\"50\" height=\"50\"></img></a>"
+					+"</div>"
+					+ "<div class=\"media-body\"><a><h4>" + data.data[i].nickname + 
+					"</a><span class=\"cm_date\">"+ data.data[i].cdate 
+					+"</span><a data-toggle=\"modal\" data-target=\"#cm_reply_id\" data-whatever=\"@" +data.data[i].nickname+ "\" ><span class=\"cm_reply pull-right\">回复</span></a>" +"</h4>" +
+					"<p>"+data.data[i].content+"</p>"+
+					"<div class=\"cm_floor\">"+data.data[i].commentId+"楼<hr></div>" +
+					"</div></li>");
+					}
+				else{
+					$(".commentList .container ul").prepend("<li class=\"media\">"
+					+ "<div class=\"media-left\">" 
+					+ "<a class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/" +data.data[i].thumbnail+"\" width=\"50\" height=\"50\"></img></a>"
+					+"</div>"
+					+ "<div class=\"media-body\"><a><h4>" + data.data[i].nickname + 
+					"</a><span class=\"cm_date\">"+ data.data[i].cdate 
+					+"</span><a data-toggle=\"modal\" data-target=\"#cm_reply_id\" data-whatever=\"@" +data.data[i].nickname+ "\" ><span class=\"cm_reply pull-right\">回复</span></a>" +"</h4>" +
+					"<p><a>"+data.data[i].replyId+"</a> "+data.data[i].content+"</p>"+
+					"<div class=\"cm_floor\">"+data.data[i].commentId+"楼<hr></div>" +
+					"</div></li>");
+				}
+            }
+
+          } else {
+            layer.closeAll('loading');
+            /*
+            layer.msg('评论加载失败', 
+                        {
+                          time: 2000,
+                        }
+                     );
+            */
+            }
+        },
+        error: function(data) {
+          // alert(data);
+          layer.closeAll('loading');
+          layer.msg('评论加载失败,联系cikii管理员', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        },
+     });
+  });
+
+</script>
+</body>
+</html>

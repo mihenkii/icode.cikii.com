@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/faviconcompress.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+<title>beyond</title>
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/intro.css">
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/blog.css">
+<!--blog_list.css 引入要在blog.css之后 .body颜色 有冲突-->
+<link rel="stylesheet" href="<?php echo __STATIC_FILE__;?>/css/blog_list.css">
+<script src="<?php echo __STATIC_FILE__;?>/js/respond.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/html5shiv.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/jquery.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/bootstrap.min.js"></script>
+<script src="<?php echo __STATIC_FILE__;?>/js/layer.js"></script>
+</head>
+
+<body>
+<div class="header">
+  <div class="container">
+  
+      	<nav role="navigation" class="navbar navbar-default">
+			<div class="navbar-header">
+				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+    				<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+    			</button>
+				<a class="navbar-brand" href="http://beyond.cikii.com/"><h2>Cikii</h2></a>
+    		</div>
+    								
+    		<div id="navbar-collapse-02" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav headerul">
+					<li><a href="http://beyond.cikii.com/blog/index/index"><h5>博客首页</h5></a></li>
+					<li><a href="#"><h5>活动报名</h5></a></li>
+				</ul>
+                 <form class="navbar-form navbar-left sbox">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索一下</button>
+                 </form>
+    			<ul	id="headerul" class="nav navbar-nav navbar-right">			      
+                    <li class="dropdown">
+                        <?php if("true" === $logged) {
+                            echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h5>'. $showname .'<span class="caret"></span></h5></a>';
+                        } else {
+					        echo '<li class="nav_register" role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal"><h5>登录</h5></a></li>';
+                        }?>
+
+                        <ul class="dropdown-menu">
+
+					        <?php 
+					        if("true"==="$logged") {
+					        echo '<li><a href="../navbar/">我的博客</a></li>';
+					        echo '<li><a href="../navbar/">我的活动</a></li>';
+					        echo '<li><a href="../navbar/">消息</a></li>';
+                            echo '<li role="separator" class="divider"></li>';
+					        echo '<li role="presentation" data-toggle="modal" data-target=".bs-example-modal-sm"><a href="#">退出</a> </li>'; 
+					        } else {
+					        echo '<li class="nav_register" role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal">登录</a></li>';
+					        } 
+					        ?>
+                        </ul>
+                    </li>
+					  
+					  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						<div class="modal-dialog modal-sm">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">确定要退出cikii?</h4>
+						  </div>
+						  <div class="modal-dialog modal-sm">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							  <a href="http://beyond.cikii.com/user/index/logout"><button type="button" class="btn btn-primary">确定</button></a>
+						  </div>
+						</div>
+					  </div>
+    			</ul> 		      
+    		</div><!-- /.navbar-collapse -->	
+		<nav
+
+    <!--登录框 -->
+
+    <div class="modal fade" style="display:none; color:#000" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="loginmodal-container">
+          <h1>登录Cikii</h1><br>
+          <form id="loginForm">
+            <input type="text" name="username" placeholder="用户名">
+            <input type="password" name="password" placeholder="密码">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+          </form>
+          <div class="login-help">
+            <a href="http://beyond.cikii.com/user/register/edit">注册新用户</a> - <a href="#">找回密码</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- container -->
+</div> <!-- header -->
+
+<div class="bs-docs-header">
+	<div class="container">
+        <div class="raw">
+            <div class="col-md-6 col-xs-8 user-icon">
+                <a href="#">
+                    <img src="http://beyond.cikii.com/images/intro_hjq.png" alt="thumbnail">
+                </a>
+
+                <div class="user-icon-desc">
+		            <h2>仟楠</h2>
+
+		            <p>每一分亲切 在这个温暖家乡故地.<br>
+                    <span style="font-size:14px;">积分:</span> <a href="#"><span style="font-size: 14px; color:#fff;"><?php echo $score; ?></span></a>
+		            </p>
+                    <div class="user-icon-like">
+                        <button id="follow_button" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> 关注
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#message_id" data-whatever="@nicename">			
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 私信
+                        </button>
+                    </div>
+                </div>
+            </div> <!-- user-icon -->
+            <div class="user-fans col-md-push-3 col-md-3 col-xs-8">
+                <div class="item item-fans">粉丝
+                    <a href="#"><?php echo $follower_num; ?></a>
+                </div>
+                <div class="item item-follow">关注
+                    <a href="#"><?php echo $following_num; ?></a>
+                </div>
+            </div> <!-- user-fans -->
+        </div>
+	</div> <!-- container -->
+</div> <!-- bs-docs-header -->
+
+
+<!-- 私信 -->
+
+<div class="modal fade" id="message_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">新消息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="messages_form">
+		  <input class="form-control" name="to_user_id" type="hidden" value="<?=$userId?>"></input>
+		  <input class="form-control" name="from_user_id" type="hidden" value="<?=$myId?>"></input>
+          <div class="form-group">
+            <label for="message_text" class="control-label">消息:</label>
+            <textarea class="form-control" id="message_text" name="message_text" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="message_commit" class="btn btn-primary">确认</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- 私信 -->
+
+<div class="user-space-wrapper container">
+    <div class="row">
+        <div class="space-sider col-sm-3">
+            <div class="sidebar-module sidebar-module-insert">
+                <h4 class="sidebar-module-header">热门推荐</h4>
+                <p>这个</p>
+                <p>这个</p>
+                <p>这个</p>
+                <p></p>
+            </div>
+            <div class="sidebar-module">
+                <h4 class="sidebar-module-header">TA的足迹</h4>
+                <p>登陆时间</p>
+            </div>
+        </div> <!-- space-sider -->
+
+        <div class="space-main col-sm-9">
+            <ul id="my-space-tabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#all-activities" id="all-activities-tab" role="tab" data-toggle="tab" aria-controls="all-activities"><h4>全部动态</h4></a>
+                </li>
+                <li role="presentation">
+                    <a href="#my-blogs" id="my-blogs-tab" role="tab" data-toggle="tab" aria-controls="my-blogs"><h4>我的博客</h4></a>
+                </li>
+                <li role="presentation">
+                    <a href="#my-activities" id="my-activities-tab" role="tab" data-toggle="tab" aria-controls="my-activities"><h4>我的活动</h4></a>
+                </li>
+                <?php
+                    if($myId == $userId) {
+                echo '<li role="presentation">';
+                echo '<a href="#my-messages" id="my-messages-tab" role="tab" data-toggle="tab" aria-controls="my-messages"><h4>我的消息</h4></a>';
+                echo '</li>';
+                }?>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="all-activities" aria-labelledby="all-activities-tab">
+                    <div class="container">
+                        <div class="all-activities-list">
+                            <div class="container">
+                                <ul class="media-list">
+
+                                <?php 
+                                    $total_activity = json_decode($total_activity);
+                                    foreach($total_activity as $activity){
+                                        if($activity->commentId) {
+                                            echo "<li>";
+                                            echo "<div class=\"media\">";
+                                            echo "<div class=\"media-left\">";
+                                            echo "<a href=\"#\" class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/$activity->thumbnail\"></img></a>";
+                                            echo "</div>";
+                                            echo "<div class=\"media-body\"><a><h4><b>$activity->nickname</b></a><span class=\"cm_date\">$activity->cdate</span></h4>";
+                                            echo "<span class=\"cm_des\">评论了博客<a>$activity->post_title</a></span>";
+                                            echo "<p class=\"cm_comment\">$activity->content</p><hr>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</li>";
+                                        }else if($activity->postId){
+                                            $digest = htmlspecialchars_decode($activity->digest);
+                                            echo "<li>";
+                                            echo "<div class=\"media\">";
+                                            echo "<div class=\"media-left\">";
+                                            echo "<a href=\"#\" class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/$activity->thumbnail\"></img></a>";
+                                            echo "</div>";
+                                            echo "<div class=\"media-body\"><a><h4><b>$activity->nickname</b></a><span class=\"cm_date\">$activity->cdate</span></h4>";
+                                            echo "<span class=\"cm_des\">发布了博客<a>$activity->title</a></span>";
+                                            echo "<p>$digest</p><hr>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</li>";
+                                        }else if($activitiy->activityId){
+                                            continue;
+                                            // print_r($activity->activityId);
+                                        }
+                                    }
+                                ?>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- container -->
+                </div> <!-- all-activities -->
+                <div role="tabpanel" class="tab-pane fade" id="my-blogs" aria-labelledby="my-blogs-tab">
+                    <div class="container">
+                        <div class="all-activities-list">
+                            <div class="container">
+                                <ul class="media-list">
+
+                                <?php 
+                                    // $total_activity = json_decode($total_activity);
+                                    foreach($total_activity as $activity){
+                                        if($activity->title){
+                                            $digest = htmlspecialchars_decode($activity->digest);
+                                            echo "<li>";
+                                            echo "<div class=\"media\">";
+                                            echo "<div class=\"media-left\">";
+                                            echo "<a href=\"#\" class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/$activity->thumbnail\"></img></a>";
+                                            echo "</div>";
+                                            echo "<div class=\"media-body\"><a><h4><b>$activity->nickname</b></a><span class=\"cm_date\">$activity->cdate</span></h4>";
+                                            echo "<span class=\"cm_des\">发布了博客<a>$activity->title</a></span>";
+                                            echo "<p>$digest</p><hr>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</li>";
+                                        }
+                                    }
+                                ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- container -->
+                </div> <!-- all blog -->
+                <div role="tabpanel" class="tab-pane faden" id="my-activities" aria-labelledby="my-activities-tab">
+                    <div class="container">这是我的活动列表</div> <!-- container -->
+                </div> <!-- my activeties -->
+				
+                <div role="tabpanel" class="tab-pane faden" id="my-messages" aria-labelledby="my-messages-tab">
+                    <div class="container">
+                        <div class="all-activities-list all-messages-list">
+                            <div class="container">
+                                <ul class="media-list">
+                                <?php 
+                                    foreach($total_messages as $message){
+										if($message->thumbnail==null) {
+											$message->thumbnail='thumbnail/b_thumbnail.png';
+										}
+                                        if($message->reply_id==null){
+                                            $message_text = htmlspecialchars_decode($message->message_text);
+                                            echo "<li>";
+                                            echo "<div class=\"media\">";
+                                            echo "<div class=\"media-left\">";
+                                            echo "<a href=\"#\" class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/$message->thumbnail\"></img></a>";
+                                            echo "</div>";
+                                            echo "<div class=\"media-body\"><a><h4><b>$message->nickname</b></a><span class=\"cm_date\">$message->cdate 发消息:</span><a data-toggle=\"modal\" data-target=\"#message_reply_id\" data-whatever=\"@$message->nickname\" ><span class=\"cm_reply pull-right\">回复</span></a></h4>";
+                                            echo "<p>$message->message_text</p><hr>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</li>";
+                                        }
+                                    }
+                                ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- container -->
+                </div> <!-- my activeties -->
+            </div> <!-- tab-content -->
+
+        </div> <!-- space-main -->
+    </div> <!-- raw -->
+    <hr class="featurette-divider">
+</div>
+
+<!-- 回复留言框 -->
+<div class="modal fade" id="message_reply_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">新消息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="replyCommentForm">
+		  <input class="form-control" name="userId" type="hidden" value="<?=$userId?>"></input>
+		  <input class="form-control" name="postId" type="hidden" value="<?=$post_obj->postId?>"></input>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">回复:</label>
+            <input type="text" class="form-control" id="recipient-name" name="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">消息:</label>
+            <textarea class="form-control" id="message-text" name="commentContent"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="message_reply_commit" class="btn btn-primary">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+var myId = "<?php echo $myId?>";
+var userId = "<?php echo $userId?>";
+$('#login-modal').on('shown', function() {
+    $(document).off('focusin.modal');
+});
+  
+// 发私信消息
+$('#message_id').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('To ' + recipient)
+  // modal.find('.modal-body #recipient-name').val(recipient)
+});
+
+  
+$(function(){
+  $("#loginForm").submit(function(event){
+    event.preventDefault(); /* 阻止url变化 */
+    layer.load(1);
+    $.ajax({
+      url: "http://beyond.cikii.com/user/index/login",
+      method: "POST",
+      data: $("#loginForm").serialize(),
+      dataType: "json",
+      /*
+      success: function(data) {
+        if (data.ret == "success") {
+  		      window.location.href = "http://beyond.cikii.com"
+        }
+      },
+      error: function(data) {
+        layer.closeAll('loading');
+        layer.msg('用户名或密码错误,登录失败', 
+                    {
+                      time: 2000,
+                    }
+                 );
+      },
+      */
+      complete: function(data) {
+        var returnText = eval("(" + data.responseText + ")" );
+        if (data.status == 200 && returnText.ret == "success") {
+  		      window.location.href = "http://beyond.cikii.com"
+        } else {
+          layer.closeAll('loading');
+          layer.msg('用户名或密码错误,登录失败', 
+                    {
+                      time: 2000,
+                    }
+                 );
+        }
+      } // complete
+    }); // ajax
+  }); //submit
+
+  $("#follow_button").click(function(event) {
+    event.preventDefault();
+    console.log("userId is: "+userId);
+    if(myId=="" || myId==null) {
+        $('#login-modal').modal();
+    }else{
+        $.ajax({
+            method: "POST",
+            dataType: "json",
+            data: {
+                u:userId,
+            },
+            url: "http://beyond.cikii.com/user/index/follow",
+            success: function(data) {
+               if (data.ret == "success") {
+                layer.closeAll('loading');
+                layer.msg('关注成功',
+                    {
+                        timeout: 1000,
+                    }
+                );
+               } 
+            },
+            error: function(data) {
+               layer.closeAll('loading'); 
+               layer.msg('sorry, 关注失败. 可能是系统问题, 联系cikii管理员',
+                {
+                    timeout: 1000,
+                }
+               );
+            }
+        });  // ajax
+    }
+  });
+
+});
+
+/***
+* 发私信
+*/
+$(function(){
+    $("#message_commit").click(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+	  //var recipientName = $("#recipient-name").val();
+	  var messageText = $("#message_text").val();
+	  if (messageText.length < 6) {
+		   layer.msg('客官惜字如金，请多于6个字', 
+                        {
+                          time: 2000,
+                        }
+                     );
+		  return false;
+	  }
+
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/user/message/messages",
+        method: "POST",
+        data: $("#messages_form").serialize(),
+        dataType: "json",
+        success: function(data) {
+          if (data.ret == "success") {
+            layer.closeAll('loading');
+            layer.msg('留言成功', 
+                        {
+                          time: 2000,
+                        }
+                     );
+			
+				/*关闭评论框*/
+				$('#message_id').modal('hide')
+			
+          } else {
+            layer.closeAll('loading');
+            layer.msg('sorry, 留言失败了. 估计是系统问题', 
+                        {
+                          time: 2000,
+                        }
+                     );
+            }
+        },
+        error: function(data) {
+          alert(data);
+          layer.closeAll('loading');
+          layer.msg('sorry, 评论失败了. 估计是系统问题,联系cikii管理员', 
+                      {
+                        time: 2000,
+                      }
+                   );
+        },
+      });
+    });
+  });
+  
+// 回复私信框
+$('#message_reply_id').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('回复评论 ' + recipient)
+  modal.find('.modal-body #recipient-name').val(recipient)
+});
+  
+/***
+* 回复留言
+*/
+$(function(){
+    $("#message_reply_commit").click(function(event){
+      event.preventDefault(); /* 阻止url变化 */
+	  var recipientName = $("#recipient-name").val();
+	  var messageText = $("#message-text").val();
+	  if (messageText.length < 3) {
+		   layer.msg('客官惜字如金，请多于3个字', 
+                        {
+                          time: 2000,
+                        }
+                     );
+		  return false;
+	  }
+
+      layer.load(1);
+      $.ajax({
+        url: "http://beyond.cikii.com/user/message/reply",
+        method: "POST",
+        data: $("#replyCommentForm").serialize(),
+        dataType: "json",
+        success: function(data) {
+          if (data.ret == "success") {
+            layer.closeAll('loading');
+            layer.msg('评论成功', 
+                        {
+                          time: 2000,
+                        }
+                     );
+			
+			$(".all-messages-list .container ul").prepend("<li class=\"media\">"
+                + "<div class=\"media-left\">" 
+                + "<a class=\"avatar\"><img src=\"http://staticbeyond.cikii.com/img/" +data.thumbnail+"\" width=\"50\" height=\"50\"></img></a>"
+                +"</div>"
+                + "<div class=\"media-body\"><a><h4>" + data.nickname + 
+				"</a><span class=\"cm_date\">"+ data.cdate 
+				+"</span><a data-toggle=\"modal\" data-target=\"#cm_reply_id\" data-whatever=\"@" +data.nickname+ "\" ><span class=\"cm_reply pull-right\">回复</span></a>" +"</h4>" +
+                "<p><a>"+recipientName+"</a>"+data.commentContent+"</p>"+
+                "<div class=\"cm_floor\">"+data.commentId+"楼<hr></div>" +
+                "</div></li>");
+				/*关闭评论框*/
+				$('#cm_reply_id').modal('hide')
+			
+          } else {
+            layer.closeAll('loading');
+            layer.msg('sorry, 评论失败了. 估计是系统问题', 
+                        {
+                          time: 2000,
+                        }
+                     );
+            }
+        },
+        error: function(data) {
+          alert(data);
+          layer.closeAll('loading');
+          layer.msg('sorry, 评论失败了. 估计是系统问题,联系cikii管理员', 
+                      {
+                        time: 2000,
+                      }
+                   );
+		},
+	});
+});
+});
+  
+  
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+[07-Feb-2017 14:47:42 UTC] PHP Notice:  Use of undefined constant ROOT_PATH - assumed 'ROOT_PATH' in /home/wwwroot/beyond/application/Bootstrap.php on line 19
+[07-Feb-2017 14:47:42 UTC] PHP Fatal error:  Call to undefined function extractPostImg() in /home/wwwroot/beyond/application/modules/Blog/controllers/Index.php on line 40
+[07-Feb-2017 14:52:14 UTC] PHP Notice:  Use of undefined constant ROOT_PATH - assumed 'ROOT_PATH' in /home/wwwroot/beyond/application/Bootstrap.php on line 19
+[07-Feb-2017 14:52:14 UTC] PHP Fatal error:  Call to undefined function extractPostImg() in /home/wwwroot/beyond/application/modules/Blog/controllers/Index.php on line 40
