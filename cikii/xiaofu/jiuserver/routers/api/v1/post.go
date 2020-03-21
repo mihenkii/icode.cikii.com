@@ -3,6 +3,7 @@ package v1
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
@@ -96,6 +97,8 @@ func UpdatePost(c *gin.Context) {
 			errno = errorcode.ERROR
 		}
 		post.ID = oid
+		now := time.Now()
+		post.Utime = now.Unix()
 		ret, err = models.UpdatePost(post)
 		if err != nil {
 			errno = errorcode.ERROR

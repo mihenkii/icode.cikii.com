@@ -11,7 +11,13 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	gin.SetMode("debug")
+	// gin.SetMode("debug")
+
+	if mode := gin.Mode(); mode == gin.TestMode {
+		r.LoadHTMLGlob("./../template/**/*")
+	} else {
+		r.LoadHTMLGlob("template/**/*")
+	}
 
 	apiv1 := r.Group("/api/v1")
 	{
@@ -26,6 +32,8 @@ func InitRouter() *gin.Engine {
 		apiv1.GET("/posts/:id", v1.GetPostByID)
 		apiv1.PUT("/posts/:id", v1.UpdatePost)
 		apiv1.DELETE("/posts/:id", v1.DeletePost)
+
+		apiv1.GET("/index", v1.Index)
 	}
 
 	r.GET("/ping", func(c *gin.Context) {
