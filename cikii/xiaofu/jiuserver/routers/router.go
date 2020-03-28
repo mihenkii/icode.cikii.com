@@ -13,6 +13,8 @@ func InitRouter() *gin.Engine {
 
 	// gin.SetMode("debug")
 
+	r.Static("/statics", "./statics")
+
 	if mode := gin.Mode(); mode == gin.TestMode {
 		r.LoadHTMLGlob("./../template/**/*")
 	} else {
