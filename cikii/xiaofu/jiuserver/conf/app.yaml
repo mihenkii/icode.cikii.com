@@ -6,7 +6,7 @@ server:
 
 mongodb:
   # mongodbURI: "mongodb+srv://cikii:1Fys0F1vzWjKkKGE@cluster0-oqjxi.azure.mongodb.net/test?retryWrites=true&w=majority"
-  mongodbURI: "mongodb://10.232.220.42:8017"
+  mongodbURI: "mongodb://10.232.221.15:8017"
   db: cikii
 
   

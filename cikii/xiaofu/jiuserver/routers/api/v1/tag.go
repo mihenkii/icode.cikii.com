@@ -161,3 +161,8 @@ func IsTagExistByName(name string) bool {
 	}
 	return true
 }
+
+//Index func
+func Index(c *gin.Context) {
+	c.HTML(200, "index.gohtml", gin.H{"title": "Hello gin"})
+}

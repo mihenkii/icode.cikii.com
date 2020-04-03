@@ -1,12 +1,21 @@
 {{ template "base" }}
+{{ define "title" }} title {{ end }}
 
-<body>
+{{ define "header" }}
 <header>
-    {{ template "common/header" }}
-    {{ define "title" }}
-    this is title
-    {{ end }}
+    {{ template "common/header" .}}
 </header>
-<main></main>
-</body>
-</html>
+{{ end }}
+
+
+{{ define "sidebar" }}
+    {{ template "common/sidebar" . }}
+{{ end }}
+
+{{ define "content" }}
+    {{ template "common/content" . }}
+{{ end }}
+
+{{ define "scripts" }}
+    {{ template "common/script" . }}
+{{ end }}
