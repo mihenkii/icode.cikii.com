@@ -1,5 +1,5 @@
 {{ define "common/sidebar" }}
-<div class="wrapper">
+<aside>
     <!-- Sidebar -->
     <nav id="sidebar">
 
@@ -37,7 +37,7 @@
         </ul>
     </nav>
     <div class="overlay"></div>
-</div>
+</aside>
 {{ end }}
 
 {{ define "common/script" }}
@@ -50,11 +50,13 @@
             $('#dismiss, .overlay').on('click', function () {
                 $('#sidebar').removeClass('active');
                 $('.overlay').removeClass('active');
+                $('.navbar').removeClass('active');
             });
 
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').addClass('active');
                 $('.overlay').addClass('active');
+                $('.navbar').addClass('active')
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
