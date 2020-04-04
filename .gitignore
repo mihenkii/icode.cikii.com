@@ -3,3 +3,6 @@ output
 *.un~
 .swap
 .vscode
+.sum
+*.mod
+*.sum
