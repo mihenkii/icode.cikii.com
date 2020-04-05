@@ -12,6 +12,10 @@
   }
 }
 
+body {
+    background-color: #f6f7f8;
+}
+
 .navbar {
     padding: 15px 10px;
     background: #fff;
@@ -115,3 +119,10 @@
     color: #7386D5;
 }
 
+.news-container {
+    background-color: #fff;
+}
+
+.content-right .card {
+    border: 1px solid rgba(0,0,0,.125);
+}
