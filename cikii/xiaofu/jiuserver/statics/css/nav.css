@@ -126,3 +126,19 @@ body {
 .content-right .card {
     border: 1px solid rgba(0,0,0,.125);
 }
+
+.baike-list .list-group-item {
+    padding: 0;
+    border: none;
+}
+.baike-list .card {
+    border: none;
+}
+.baike-list-img {
+    width: 133px;
+    height: 100px;
+}
+
+.feed-container {
+    background-color: #fff;
+}
