@@ -164,5 +164,8 @@ func IsTagExistByName(name string) bool {
 
 //Index func
 func Index(c *gin.Context) {
-	c.HTML(200, "index.gohtml", gin.H{"title": "Hello gin"})
+	c.HTML(200, "index.gohtml", gin.H{
+		"title":        "Hello gin",
+		"staticserver": "139.224.26.204:8012",
+	})
 }
