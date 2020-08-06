@@ -31,7 +31,8 @@ type Config struct {
 var defaultConfig = Config{
 	RunMode: "debug",
 	Server:  ServerConfig{Host: "localhost", Port: 8012},
-	MongoDB: MongodbConfig{MongodbURI: "mongodb://10.232.221.15:8017"},
+	// MongoDB: MongodbConfig{MongodbURI: "mongodb+srv://cikii:9NRYuOtb3N1AVya2@cluster0-oqjxi.azure.mongodb.net/test?retryWrites=true&w=majority"},
+	MongoDB: MongodbConfig{MongodbURI: "mongodb://127.0.0.1:27017"},
 }
 
 // Process validate config format

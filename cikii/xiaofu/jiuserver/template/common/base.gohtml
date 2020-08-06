@@ -1,28 +1,28 @@
-{{ define "base" }}
+{{ define "base.gohtml" }}
 <!doctype html>
 <html>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>  {{ template "title" . }} </title>
+    <title> {{ .title }} </title>
     <head>
-        <link rel="stylesheet" href="http://127.0.0.1:8012/statics/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="http://127.0.0.1:8012/statics/fontawesome/css/brands.min.css">
-        <link rel="stylesheet" href="http://127.0.0.1:8012/statics/fontawesome/css/solid.min.css">
-        <link rel="stylesheet" href="http://127.0.0.1:8012/statics/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://127.0.0.1:8012/statics/css/nav.css">
-        <link rel="stylesheet" href="http://127.0.0.1:8012/statics/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="http://{{ .staticserver }}/statics/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="http://{{ .staticserver }}/statics/fontawesome/css/brands.min.css">
+        <link rel="stylesheet" href="http://{{ .staticserver }}/statics/fontawesome/css/solid.min.css">
+        <link rel="stylesheet" href="http://{{ .staticserver }}/statics/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://{{ .staticserver }}/statics/css/nav.css">
+        <link rel="stylesheet" href="http://{{ .staticserver }}/statics/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     </head>
     <body>
         {{ template "header" . }}
         {{ template "sidebar" . }}
         {{ template "content" . }}
     <footer>
-        <script src="http://127.0.0.1:8012/statics/js/jquery-3.4.1.slim.min.js" rel="script"></script>
-        <script src="http://127.0.0.1:8012/statics/js/popper.min.js" rel="script"></script>
-        <script src="http://127.0.0.1:8012/statics/js/bootstrap.min.js" rel="script"></script>
-        <script src="http://127.0.0.1:8012/statics/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js" rel="script"></script>
+        <script src="http://{{ .staticserver }}/statics/js/jquery-3.4.1.slim.min.js" rel="script"></script>
+        <script src="http://{{ .staticserver }}/statics/js/popper.min.js" rel="script"></script>
+        <script src="http://{{ .staticserver }}/statics/js/bootstrap.min.js" rel="script"></script>
+        <script src="http://{{ .staticserver }}/statics/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js" rel="script"></script>
         {{ template "scripts" . }}
     </footer>
     </body>

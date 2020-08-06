@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -42,7 +43,7 @@ func GetTags(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"errno": errno,
-		"msg":   errorcode.GetMsg(errno),
+		"message":   errorcode.GetMsg(errno),
 		"data":  ret,
 	})
 }
@@ -52,12 +53,12 @@ func AddTag(c *gin.Context) {
 	var tag models.Tag
 	var errno int
 
-	if c.ShouldBind(&tag) == nil {
+	if err := c.ShouldBind(&tag); err == nil {
 		if IsTagExistByName(tag.Name) {
 			log.Printf("tag %s is already exist", tag.Name)
 			c.JSON(http.StatusOK, gin.H{
 				"errno": errorcode.TAG_NAME_EXSIT,
-				"msg":   errorcode.GetMsg(errorcode.TAG_NAME_EXSIT),
+				"message":   errorcode.GetMsg(errorcode.TAG_NAME_EXSIT),
 				"data":  nil,
 			})
 			return
@@ -71,11 +72,12 @@ func AddTag(c *gin.Context) {
 		log.Println("Insert result is:", ret)
 	} else {
 		errno = errorcode.ERROR
+		fmt.Printf("%v", err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"errno": errno,
-		"msg":   errorcode.GetMsg(errno),
+		"message":   errorcode.GetMsg(errno),
 		"data":  nil,
 	})
 }
@@ -164,5 +166,79 @@ func IsTagExistByName(name string) bool {
 
 //Index func
 func Index(c *gin.Context) {
-	c.HTML(200, "index.gohtml", gin.H{"title": "Hello gin"})
+	c.HTML(http.StatusOK, "index.gohtml", gin.H{
+		"title": "hello", 
+		"staticserver": "139.224.26.204:8012",
+	})
+}
+
+// Add Aritcle func
+func AddArticle(c *gin.Context) {
+
+	var ret interface{}
+	c.JSON(http.StatusOK, gin.H{
+		"errno": 0,
+		"message": "imtest",
+		"data": ret,
+	})
+
+
+}
+
+// ListTagOptions func
+func ListTagOptions(c *gin.Context) {
+
+	conds := make(map[string]interface{})
+	// type option map[string]interface{}
+	// var options []option
+        // o := make(option)
+	optionret := make(map[string]interface{})
+	
+
+	if _id := c.Query("_id"); _id != "" {
+		bsonID, err := primitive.ObjectIDFromHex(_id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		conds["_id"] = bsonID
+	}
+	if name := c.Query("name"); name != "" {
+		conds["name"] = name
+	}
+
+	if arg := c.Query("state"); arg != "" {
+		state := com.StrTo(arg).MustInt()
+		conds["state"] = state
+	}
+
+	errno := errorcode.SUCCESS
+	filter, err := models.ConvertToDoc(conds)
+	if err != nil {
+		log.Fatal(err)
+	}
+	ret, err := models.FindTagByField(filter)
+	if err != nil {
+		log.Fatal(err)
+        }
+	
+	type option map[string]interface{}
+	var options []option
+	// o := make(option)
+	for _, v := range ret {
+		o := make(option)
+		if v["state"] == "1" {
+			o["label"] = v["name"]
+			o["value"] = v["_id"]
+                        options = append(options, o)
+		}
+        }
+
+	optionret["options"] = options
+	optionret["value"] = "1"
+
+	c.JSON(http.StatusOK, gin.H{
+		"errno": errno,
+		"message":   errorcode.GetMsg(errno),
+		"data":  optionret,
+	})
 }

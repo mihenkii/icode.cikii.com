@@ -1,12 +1,11 @@
-{{ template "base" }}
-{{ define "title" }} title {{ end }}
+{{ template "base.gohtml" . }}
+
 
 {{ define "header" }}
 <header>
-    {{ template "common/header" .}}
+    {{ template "common/header" . }}
 </header>
 {{ end }}
-
 
 {{ define "sidebar" }}
     {{ template "common/sidebar" . }}

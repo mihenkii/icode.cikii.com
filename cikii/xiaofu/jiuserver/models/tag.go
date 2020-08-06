@@ -12,7 +12,8 @@ import (
 type Tag struct {
 	ID    primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty" form:"id,omitempty" uri:"id"`
 	Name  string             `bson:"name,omitempty" json:"name,omitempty" form:"name,omitempty" uri:"name"`
-	State int                `bson:"state,omitempty" json:"state,omitempty" form:"state,omitempty" uri:"state"`
+	State string		 `bson:"state,omitempty" json:"state,omitempty" form:"state,omitempty" uri:"state"`
+	Ctime string		 `bson:"ctime,omitempty" json:"ctime,omitempty" form:"ctime,omitempty" uri:"ctime"`
 }
 
 // NewTag always next to Post struct define
