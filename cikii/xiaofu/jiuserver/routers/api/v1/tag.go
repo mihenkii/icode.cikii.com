@@ -176,6 +176,10 @@ func Index(c *gin.Context) {
 func AddArticle(c *gin.Context) {
 
 	var ret interface{}
+	var article models.Article
+	if c.ShouldBind(&article) == nil {
+		fmt.Println(article)
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"errno":   0,
 		"message": "imtest",
