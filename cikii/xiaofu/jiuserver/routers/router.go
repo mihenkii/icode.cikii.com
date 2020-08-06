@@ -2,8 +2,8 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"icode.cikii.com/cikii/xiaofu/jiuserver/middleware"
 	v1 "icode.cikii.com/cikii/xiaofu/jiuserver/routers/api/v1"
-        "icode.cikii.com/cikii/xiaofu/jiuserver/middleware"
 )
 
 // InitRouter func
